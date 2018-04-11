@@ -23,6 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +51,7 @@ public class MatchContent {
     public MatchContent() {
         FileInputStream fis = null;
         try {
-            fis = MatchListActivity.getContext().openFileInput(fileName);
+            fis = MatchListActivity.context.openFileInput(fileName);
             ObjectInputStream is = new ObjectInputStream(fis);
             ArrayList<MatchDetail> matches = (ArrayList<MatchDetail>) is.readObject();
             for (MatchDetail match : matches) {
@@ -67,7 +68,7 @@ public class MatchContent {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
-    
+
     public static void saveMatches() {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signInAnonymously().addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -92,13 +93,13 @@ public class MatchContent {
                                 match.auto_start = currentMatch.child("auto_start").getValue(String.class);
                                 match.auto_switch = currentMatch.child("auto_switch").getValue(Integer.class);
                                 match.comments = currentMatch.child("comments").getValue(String.class);
-                                match.defensive_rating = currentMatch.child("defensive_rating").getValue(Integer.class);
+                                match.defensive_rating = currentMatch.child("defensive_rating").getValue(String.class);
                                 match.hang_attempt = currentMatch.child("hang_attempt").getValue(Boolean.class);
                                 match.hang_succeed = currentMatch.child("hang_succeed").getValue(Boolean.class);
                                 match.hang_time = currentMatch.child("hang_time").getValue(Integer.class);
                                 match.host_succeed = currentMatch.child("host_succeed").getValue(Boolean.class);
-                                match.match_num = currentMatch.child("match_num").getValue(Integer.class);
-                                match.team_num = currentMatch.child("team_num").getValue(Integer.class);
+                                match.match_num = Integer.parseInt(currentMatch.child("match_num").getValue(String.class));
+                                match.team_num = Integer.parseInt(currentMatch.child("team_num").getValue(String.class));
                                 match.teleop_opp_switch = currentMatch.child("teleop_opp_switch").getValue(Integer.class);
                                 match.teleop_scale = currentMatch.child("teleop_scale").getValue(Integer.class);
                                 match.teleop_switch = currentMatch.child("teleop_switch").getValue(Integer.class);
@@ -106,7 +107,7 @@ public class MatchContent {
                                 match_results.add(match);
                             }
                             try {
-                                fos = MatchListActivity.getContext().openFileOutput(fileName, Context.MODE_PRIVATE);
+                                fos = MatchListActivity.context.openFileOutput(fileName, Context.MODE_PRIVATE);
                                 ObjectOutputStream os = new ObjectOutputStream(fos);
                                 os.writeObject(match_results);
                                 os.close();
@@ -129,16 +130,12 @@ public class MatchContent {
         });
     }
 
-    public static class MatchDetail {
-        public int match_num, team_num, auto_scale, auto_switch, defensive_rating;
+    public static class MatchDetail implements Serializable {
+        public int match_num, team_num, auto_scale, auto_switch;
+        public String defensive_rating;
         public int teleop_opp_switch, teleop_scale, teleop_switch, teleop_vault;
         public String id, alliance, auto_start, comments;
         public boolean auto_line, hang_attempt, hang_succeed, host_succeed;
         public double hang_time;
-
-        @Override
-        public String toString() {
-            return "Match: " + match_num + " Team: " + team_num;
-        }
     }
 }

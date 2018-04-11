@@ -26,6 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
+import static com.viperbotsvalor6800.valorscouting.MatchContent.saveMatches;
+
 /**
  * An activity representing a list of Matches. This activity
  * has different presentations for handset and tablet-size devices. On
@@ -42,14 +44,13 @@ public class MatchListActivity extends AppCompatActivity {
      */
     private boolean mTwoPane;
 
-    public static Context getContext() {
-        return MatchListActivity.getContext();
-    }
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_match_list);
+        context = getApplicationContext();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
