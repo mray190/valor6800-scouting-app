@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "551998214691",
+    "firebase_url": "https://viperbotsvalor.firebaseio.com",
+    "project_id": "viperbotsvalor",
+    "storage_bucket": "viperbotsvalor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551998214691:android:5715c3e825601fb8",
+        "android_client_info": {
+          "package_name": "com.viperbotsvalor6800.valorscouting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "551998214691-0tfatoimbgn39pf4ipntr9ps4bkkeg0b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.viperbotsvalor6800.valorscouting",
+            "certificate_hash": "b13e4468d020ee06206352fe5505d6028fbf3112"
+          }
+        },
+        {
+          "client_id": "551998214691-f1curh2ao6t7n9o3ransfcnl0bgjm477.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBu34MNulZereSizOJn4vHCAa-XiXHZJuY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "551998214691-f1curh2ao6t7n9o3ransfcnl0bgjm477.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

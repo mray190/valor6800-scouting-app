@@ -9,8 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.viperbotsvalor6800.valorscouting.dummy.DummyContent;
-
 /**
  * A fragment representing a single Match detail screen.
  * This fragment is either contained in a {@link MatchListActivity}
@@ -27,7 +25,7 @@ public class MatchDetailFragment extends Fragment {
     /**
      * The dummy content this fragment is presenting.
      */
-    private DummyContent.DummyItem mItem;
+    private MatchContent.MatchDetail mItem;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -44,12 +42,12 @@ public class MatchDetailFragment extends Fragment {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            mItem = MatchContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
+                appBarLayout.setTitle(Integer.toString(mItem.team_num));
             }
         }
     }
@@ -61,7 +59,7 @@ public class MatchDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.match_detail)).setText(mItem.details);
+            ((TextView) rootView.findViewById(R.id.match_detail)).setText(mItem.match_num);
         }
 
         return rootView;
