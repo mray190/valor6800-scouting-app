@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,8 +16,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.viperbotsvalor6800.valorscouting.dummy.DummyContent;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -36,6 +43,10 @@ public class MatchListActivity extends AppCompatActivity {
      * device.
      */
     private boolean mTwoPane;
+
+    public static Context getContext() {
+        return MatchListActivity.getContext();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,19 +79,19 @@ public class MatchListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, MatchContent.ITEMS, mTwoPane));
     }
 
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
         private final MatchListActivity mParentActivity;
-        private final List<DummyContent.DummyItem> mValues;
+        private final List<MatchContent.MatchDetail> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+                MatchContent.MatchDetail item = (MatchContent.MatchDetail) view.getTag();
                 if (mTwoPane) {
                     Bundle arguments = new Bundle();
                     arguments.putString(MatchDetailFragment.ARG_ITEM_ID, item.id);
@@ -100,7 +111,7 @@ public class MatchListActivity extends AppCompatActivity {
         };
 
         SimpleItemRecyclerViewAdapter(MatchListActivity parent,
-                                      List<DummyContent.DummyItem> items,
+                                      List<MatchContent.MatchDetail> items,
                                       boolean twoPane) {
             mValues = items;
             mParentActivity = parent;
@@ -117,7 +128,7 @@ public class MatchListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+            holder.mContentView.setText(mValues.get(position).team_num);
 
             holder.itemView.setTag(mValues.get(position));
             holder.itemView.setOnClickListener(mOnClickListener);
