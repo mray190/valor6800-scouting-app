@@ -10,9 +10,11 @@ import android.support.v7.widget.Toolbar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.viperbotsvalor6800.valorscouting.dummy.DummyContent;
@@ -137,4 +139,45 @@ public class MatchListActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        System.out.println("id : " + id);
+
+        switch (id) {
+            case R.id.nav_upload : {
+                Toast.makeText(this, "Uploading...", Toast.LENGTH_LONG).show();
+                return true;
+            }
+            case R.id.nav_download: {
+                Toast.makeText(this, "Downloading...", Toast.LENGTH_LONG).show();
+                return true;
+            }
+            case R.id.nav_scout: {
+                Toast.makeText(this, "Scout!", Toast.LENGTH_LONG).show();
+                //            Intent intent = new Intent(this,SecondActivity.class);
+                //            this.startActivity(intent);
+                return true;
+            }
+            case R.id.nav_team_list: {
+                Toast.makeText(this, "Team list!", Toast.LENGTH_LONG).show();
+                return true;
+            }
+            case R.id.nav_settings: {
+                Toast.makeText(this, "Settings!", Toast.LENGTH_LONG).show();
+                return true;
+            }
+
+            default: return super.onOptionsItemSelected(item);
+        }
+
+
+    }
+
+
 }
